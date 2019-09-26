@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import Section from './components/Section';
 
-const INTERESTS = ['Magic', 'Computers', 'Procrastination', 'Sleeping', 'Spaceships'];
+const INTERESTS = {
+  en: ['Magic', 'Computers', 'Procrastination', 'Sleeping', 'Spaceships'],
+  jp: ['First', 'Second', 'Hello'],
+};
 
 function App() {
+  const [language, setLanguage] = useState('en');
+
   return (
     <div className="App">
+      <select onChange={e => setLanguage(e.target.value)}>
+        <option value="en">English</option>
+        <option value="jp">Japanese</option>
+      </select>
       <Header />
       <Main>
         <div className="Col">
@@ -64,7 +73,7 @@ function App() {
           </Section>
           <Section className="pattern-top" title="Interests">
             <ul className="List--tag-list">
-              {INTERESTS.map((interest, i) => <li key={i}>{interest}</li>)}
+              {INTERESTS[language].map((interest, i) => <li key={i}>{interest}</li>)}
             </ul>
           </Section>
         </div>
