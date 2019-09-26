@@ -1,0 +1,21 @@
+.List--two-col li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.List--tag-list {
+  display: flex;
+}
+
+.List--tag-list li {
+  padding: 0 5px;
+  border-right: 2px solid #e1e1e1;
+}
+
+.List--tag-list li:first-child {
+  padding-left: 0;
+}
+
+.List--tag-list li:last-child {
+  border-right: none;
+}
