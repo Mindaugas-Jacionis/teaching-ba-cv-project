@@ -11,6 +11,51 @@ const INTERESTS = {
   jp: ['First', 'Second', 'Hello'],
 };
 
+const CONTACTS = {
+  en: [
+    { label: 'Tel:', text: '+370623456789', href: 'tel:+370623456789' },
+    { label: 'Email:', text: 'you@wish.test', href: 'mailto:you@wish.test' },
+    {
+      label: 'Twitter:',
+      text: '@MJacionis',
+      href: 'https://twitter.com/MJacionis',
+      shouldTargetBlank: true,
+    },
+    {
+      label: 'Github:',
+      text: 'Mindaugas-Jacionis',
+      href: 'https://github.com/Mindaugas-Jacionis',
+      shouldTargetBlank: true,
+    },
+    {
+      label: 'Web:',
+      text: 'herooftheweb.com',
+      href: 'https://herooftheweb.com',
+      shouldTargetBlank: true,
+    },
+  ],
+  jp: [{ label: 'Tel:', text: '+370623456789', href: 'tel:+370623456789' }],
+};
+
+function ContactListItem({ label, text, ...rest }) {
+  const Component = rest.href ? Link : 'span';
+
+  return (
+    <li className="flex justify-between">
+      <span>{label}</span>
+      <Component {...rest}>{text}</Component>
+    </li>
+  );
+}
+
+function StarsRating({ amount }) {
+  return [...Array(amount)].map((item, index) => (
+    <span key={index} role="img" aria-label="Star emoji">
+      ⭐
+    </span>
+  ));
+}
+
 function App() {
   const [language, setLanguage] = useState('en');
 
@@ -29,32 +74,9 @@ function App() {
               claw brownie. Wafer toffee sesame snaps. Cheesecake jujubes jujubes.
             </p>
             <ul>
-              <li className="flex justify-between">
-                <span>Tel:</span>
-                <Link href="tel:+370623456789">+370623456789</Link>
-              </li>
-              <li className="flex justify-between">
-                <span>Email:</span>
-                <Link href="mailto:you@wish.com?subject=Hello World">you@wish.com</Link>
-              </li>
-              <li className="flex justify-between">
-                <span>Twitter:</span>
-                <Link href="https://twitter.com/MJacionis" shouldTargetBlank>
-                  @MJacionis
-                </Link>
-              </li>
-              <li className="flex justify-between">
-                <span>Github:</span>
-                <Link href="https://github.com/mindaugas-jacionis" shouldTargetBlank>
-                  mindaugas-jacionis
-                </Link>
-              </li>
-              <li className="flex justify-between">
-                <span>Web:</span>
-                <Link href="https://heroofweb.com" shouldTargetBlank>
-                  heroOfWeb.com
-                </Link>
-              </li>
+              {CONTACTS[language].map((item, index) => (
+                <ContactListItem key={index} {...item} />
+              ))}
             </ul>
           </Section>
           <Section className="pattern-top" title="Experience">
@@ -82,11 +104,21 @@ function App() {
           </Section>
           <Section className="pattern-top" title="Skills">
             <ul>
-              <li>JavaScript - Advanced</li>
-              <li>Html - Advanced</li>
-              <li>Css - Beginner</li>
-              <li>WoW - Intermediate</li>
-              <li>Eating - Super Advanced</li>
+              <li>
+                JavaScript - <StarsRating amount={5} />
+              </li>
+              <li>
+                Html - <StarsRating amount={5} />
+              </li>
+              <li>
+                Css - <StarsRating amount={1} />
+              </li>
+              <li>
+                WoW - <StarsRating amount={3} />
+              </li>
+              <li>
+                Eating - <StarsRating amount={7} />
+              </li>
             </ul>
           </Section>
           <Section className="pattern-top" title="Interests">
