@@ -5,37 +5,7 @@ import Main from './components/Main';
 import Section from './components/Section';
 import TagList from './components/TagList';
 import Link from './components/Link';
-
-const INTERESTS = {
-  en: ['Magic', 'Computers', 'Procrastination', 'Sleeping', 'Spaceships'],
-  jp: ['First', 'Second', 'Hello'],
-};
-
-const CONTACTS = {
-  en: [
-    { label: 'Tel:', text: '+370623456789', href: 'tel:+370623456789' },
-    { label: 'Email:', text: 'you@wish.test', href: 'mailto:you@wish.test' },
-    {
-      label: 'Twitter:',
-      text: '@MJacionis',
-      href: 'https://twitter.com/MJacionis',
-      shouldTargetBlank: true,
-    },
-    {
-      label: 'Github:',
-      text: 'Mindaugas-Jacionis',
-      href: 'https://github.com/Mindaugas-Jacionis',
-      shouldTargetBlank: true,
-    },
-    {
-      label: 'Web:',
-      text: 'herooftheweb.com',
-      href: 'https://herooftheweb.com',
-      shouldTargetBlank: true,
-    },
-  ],
-  jp: [{ label: 'Tel:', text: '+370623456789', href: 'tel:+370623456789' }],
-};
+import { CONTACTS, INTERESTS } from './data';
 
 function ContactListItem({ label, text, ...rest }) {
   const Component = rest.href ? Link : 'span';
