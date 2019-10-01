@@ -3,6 +3,8 @@ import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import Section from './components/Section';
+import TagList from './components/TagList';
+import Link from './components/Link';
 
 const INTERESTS = {
   en: ['Magic', 'Computers', 'Procrastination', 'Sleeping', 'Spaceships'],
@@ -23,43 +25,59 @@ function App() {
         <div className="Col">
           <Section className="pattern-top" title="Details">
             <p>
-              Candy canes candy gummi bears candy. Dragée muffin chocolate bar chocolate bar bear claw brownie. Wafer toffee sesame snaps. Cheesecake jujubes jujubes.
+              Candy canes candy gummi bears candy. Dragée muffin chocolate bar chocolate bar bear
+              claw brownie. Wafer toffee sesame snaps. Cheesecake jujubes jujubes.
             </p>
-            <ul className="List--two-col">
-              <li>
+            <ul>
+              <li className="flex justify-between">
                 <span>Tel:</span>
-                <span>+370623456789</span>
+                <Link href="tel:+370623456789">+370623456789</Link>
               </li>
-              <li>
+              <li className="flex justify-between">
                 <span>Email:</span>
-                <span>you@wish.com</span>
+                <Link href="mailto:you@wish.com?subject=Hello World">you@wish.com</Link>
               </li>
-              <li>
+              <li className="flex justify-between">
                 <span>Twitter:</span>
-                <span>@MJacionis</span>
+                <Link href="https://twitter.com/MJacionis" shouldTargetBlank>
+                  @MJacionis
+                </Link>
               </li>
-              <li>
+              <li className="flex justify-between">
                 <span>Github:</span>
-                <span>https://github.com/username</span>
+                <Link href="https://github.com/mindaugas-jacionis" shouldTargetBlank>
+                  mindaugas-jacionis
+                </Link>
               </li>
-              <li>
+              <li className="flex justify-between">
                 <span>Web:</span>
-                <span>https://web.web</span>
+                <Link href="https://heroofweb.com" shouldTargetBlank>
+                  heroOfWeb.com
+                </Link>
               </li>
             </ul>
           </Section>
           <Section className="pattern-top" title="Experience">
-            <ul className="List--two-col">
-              <li><span>2019</span> <span>present, Hogwartz, Lecturer</span></li>
-              <li><span>2018 - 2019</span> <span>Twitter, Software Nana</span></li>
-              <li><span>2017 - 2018</span> <span>Code Academy, Student</span></li>
+            <ul>
+              <li className="flex justify-between">
+                <span>2019</span> <span>present, Hogwartz, Lecturer</span>
+              </li>
+              <li className="flex justify-between">
+                <span>2018 - 2019</span> <span>Twitter, Software Nana</span>
+              </li>
+              <li className="flex justify-between">
+                <span>2017 - 2018</span> <span>Code Academy, Student</span>
+              </li>
             </ul>
           </Section>
         </div>
         <div className="Col">
           <Section className="pattern-top" title="About Me">
             <p>
-              Pie pie cake apple pie chocolate bar gummies bonbon powder. Oat cake jelly-o pie jelly beans. Chocolate soufflé fruitcake sweet powder. Pastry candy sweet carrot cake. Sweet jelly-o carrot cake toffee wafer bonbon sugar plum cookie. Marzipan sugar plum bonbon halvah jujubes tootsie roll wafer chocolate cake wafer.
+              Pie pie cake apple pie chocolate bar gummies bonbon powder. Oat cake jelly-o pie jelly
+              beans. Chocolate soufflé fruitcake sweet powder. Pastry candy sweet carrot cake. Sweet
+              jelly-o carrot cake toffee wafer bonbon sugar plum cookie. Marzipan sugar plum bonbon
+              halvah jujubes tootsie roll wafer chocolate cake wafer.
             </p>
           </Section>
           <Section className="pattern-top" title="Skills">
@@ -72,9 +90,7 @@ function App() {
             </ul>
           </Section>
           <Section className="pattern-top" title="Interests">
-            <ul className="List--tag-list">
-              {INTERESTS[language].map((interest, i) => <li key={i}>{interest}</li>)}
-            </ul>
+            <TagList items={INTERESTS[language]} />
           </Section>
         </div>
       </Main>

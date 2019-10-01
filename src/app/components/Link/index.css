@@ -1,0 +1,10 @@
+.Link {
+  font-size: 16px;
+  text-decoration: none;
+  color: #ff66ff;
+  transition: color 0.3s;
+}
+
+.Link:hover {
+  color: #ff00ff;
+}
