@@ -1,0 +1,16 @@
+.TagList {
+  display: flex;
+}
+
+.TagList .TagList__item {
+  padding: 0 5px;
+  border-right: 2px solid #e1e1e1;
+}
+
+.TagList .TagList__item:first-child {
+  padding-left: 0;
+}
+
+.TagList .TagList__item:last-child {
+  border-right: none;
+}
