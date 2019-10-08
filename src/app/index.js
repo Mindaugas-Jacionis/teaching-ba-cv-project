@@ -18,12 +18,71 @@ function ContactListItem({ label, text, ...rest }) {
   );
 }
 
-function StarsRating({ amount }) {
-  return [...Array(amount)].map((item, index) => (
-    <span key={index} role="img" aria-label="Star emoji">
-      ⭐
-    </span>
-  ));
+class StarsRating extends React.Component {
+  state = {};
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('componentWillReceiveProps', nextProps, this.props);
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('shouldComponentUpdate');
+
+  //   return true;
+  // }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps');
+    if (props.amount >= 5) {
+      return { text: 'Amazing' };
+    }
+
+    return { text: '' };
+  }
+
+  render() {
+    const { amount, val } = this.props;
+    const { text } = this.state;
+
+    console.log('render text', text, val, this.props, this.state);
+
+    return (
+      <span>
+        {[...Array(amount)].map((item, index) => (
+          <span key={index} role="img" aria-label="Star emoji">
+            ⭐
+          </span>
+        ))}
+        {this.state.text}
+      </span>
+    );
+  }
+}
+
+class SectionAboutMe extends React.Component {
+  interval = -1;
+
+  componentDidMount() {
+    this.interval = setInterval(() => console.log('Hi'), 1000);
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+      <Section className="pattern-top" title="About Me">
+        <p>
+          Pie pie cake apple pie chocolate bar gummies bonbon powder. Oat cake jelly-o pie jelly
+          beans. Chocolate soufflé fruitcake sweet powder. Pastry candy sweet carrot cake. Sweet
+          jelly-o carrot cake toffee wafer bonbon sugar plum cookie. Marzipan sugar plum bonbon
+          halvah jujubes tootsie roll wafer chocolate cake wafer.
+        </p>
+      </Section>
+    );
+  }
 }
 
 class App extends React.Component {
@@ -37,7 +96,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    this.setState({ language: 'jp' });
+    // this.setState({ language: 'jp' });
   }
 
   setLanguage = e => {
@@ -45,9 +104,27 @@ class App extends React.Component {
     this.setState({ language: e.target.value });
   };
 
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    console.log('componentWillUpdate', nextProps, nextState);
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('getSnapshotBeforeUpdate');
+
+    return { name: 'Jon', lastName: 'Snow' };
+  }
+
+  componentDidUpdate(prevProps, prevState, random) {
+    console.log('componentDidUpdate', random);
+  }
+
   render() {
     console.log('render');
-    const { language } = this.state;
+    const { language, loading } = this.state;
+
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
 
     return (
       <div className="App">
@@ -84,21 +161,14 @@ class App extends React.Component {
             </Section>
           </div>
           <div className="Col">
-            <Section className="pattern-top" title="About Me">
-              <p>
-                Pie pie cake apple pie chocolate bar gummies bonbon powder. Oat cake jelly-o pie
-                jelly beans. Chocolate soufflé fruitcake sweet powder. Pastry candy sweet carrot
-                cake. Sweet jelly-o carrot cake toffee wafer bonbon sugar plum cookie. Marzipan
-                sugar plum bonbon halvah jujubes tootsie roll wafer chocolate cake wafer.
-              </p>
-            </Section>
+            {language !== 'jp' && <SectionAboutMe />}
             <Section className="pattern-top" title="Skills">
               <ul>
                 <li>
                   JavaScript - <StarsRating amount={5} />
                 </li>
                 <li>
-                  Html - <StarsRating amount={5} />
+                  Html - <StarsRating amount={language === 'en' ? 5 : 3} />
                 </li>
                 <li>
                   Css - <StarsRating amount={1} />
