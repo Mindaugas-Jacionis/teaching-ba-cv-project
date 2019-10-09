@@ -5,6 +5,7 @@ import Main from './components/Main';
 import Section from './components/Section';
 import TagList from './components/TagList';
 import Link from './components/Link';
+import ErrorBoundary from './components/ErrorBoundary';
 import { CONTACTS, INTERESTS } from './data';
 
 function ContactListItem({ label, text, ...rest }) {
@@ -40,10 +41,14 @@ class StarsRating extends React.Component {
   }
 
   render() {
-    const { amount, val } = this.props;
+    const { amount, val, language } = this.props;
     const { text } = this.state;
 
     console.log('render text', text, val, this.props, this.state);
+
+    if (language === 'jp') {
+      throw new Error('Errrrrrrrrr');
+    }
 
     return (
       <span>
@@ -127,66 +132,68 @@ class App extends React.Component {
     }
 
     return (
-      <div className="App">
-        <select value={language} onChange={this.setLanguage}>
-          <option value="en">English</option>
-          <option value="jp">Japanese</option>
-        </select>
-        <Header />
-        <Main>
-          <div className="Col">
-            <Section className="pattern-top" title="Details">
-              <p>
-                Candy canes candy gummi bears candy. Dragée muffin chocolate bar chocolate bar bear
-                claw brownie. Wafer toffee sesame snaps. Cheesecake jujubes jujubes.
-              </p>
-              <ul>
-                {CONTACTS[language].map((item, index) => (
-                  <ContactListItem key={index} {...item} />
-                ))}
-              </ul>
-            </Section>
-            <Section className="pattern-top" title="Experience">
-              <ul>
-                <li className="flex justify-between">
-                  <span>2019</span> <span>present, Hogwartz, Lecturer</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>2018 - 2019</span> <span>Twitter, Software Nana</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>2017 - 2018</span> <span>Code Academy, Student</span>
-                </li>
-              </ul>
-            </Section>
-          </div>
-          <div className="Col">
-            {language !== 'jp' && <SectionAboutMe />}
-            <Section className="pattern-top" title="Skills">
-              <ul>
-                <li>
-                  JavaScript - <StarsRating amount={5} />
-                </li>
-                <li>
-                  Html - <StarsRating amount={language === 'en' ? 5 : 3} />
-                </li>
-                <li>
-                  Css - <StarsRating amount={1} />
-                </li>
-                <li>
-                  WoW - <StarsRating amount={3} />
-                </li>
-                <li>
-                  Eating - <StarsRating amount={7} />
-                </li>
-              </ul>
-            </Section>
-            <Section className="pattern-top" title="Interests">
-              <TagList items={INTERESTS[language]} />
-            </Section>
-          </div>
-        </Main>
-      </div>
+      <ErrorBoundary component={() => <p>Oh My GOD, we CRASHED!</p>}>
+        <div className="App">
+          <select value={language} onChange={this.setLanguage}>
+            <option value="en">English</option>
+            <option value="jp">Japanese</option>
+          </select>
+          <Header />
+          <Main>
+            <div className="Col">
+              <Section className="pattern-top" title="Details">
+                <p>
+                  Candy canes candy gummi bears candy. Dragée muffin chocolate bar chocolate bar bear
+                  claw brownie. Wafer toffee sesame snaps. Cheesecake jujubes jujubes.
+                </p>
+                <ul>
+                  {CONTACTS[language].map((item, index) => (
+                    <ContactListItem key={index} {...item} />
+                  ))}
+                </ul>
+              </Section>
+              <Section className="pattern-top" title="Experience">
+                <ul>
+                  <li className="flex justify-between">
+                    <span>2019</span> <span>present, Hogwartz, Lecturer</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>2018 - 2019</span> <span>Twitter, Software Nana</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>2017 - 2018</span> <span>Code Academy, Student</span>
+                  </li>
+                </ul>
+              </Section>
+            </div>
+            <div className="Col">
+              {language !== 'jp' && <SectionAboutMe />}
+              <Section className="pattern-top" title="Skills">
+                <ul>
+                  <li>
+                    JavaScript - <StarsRating language={language} amount={5} />
+                  </li>
+                  <li>
+                    Html - <StarsRating amount={language === 'en' ? 5 : 3} />
+                  </li>
+                  <li>
+                    Css - <StarsRating amount={1} />
+                  </li>
+                  <li>
+                    WoW - <StarsRating amount={3} />
+                  </li>
+                  <li>
+                    Eating - <StarsRating amount={7} />
+                  </li>
+                </ul>
+              </Section>
+              <Section className="pattern-top" title="Interests">
+                <TagList items={INTERESTS[language]} />
+              </Section>
+            </div>
+          </Main>
+        </div>
+      </ErrorBoundary>
     );
   }
 }
